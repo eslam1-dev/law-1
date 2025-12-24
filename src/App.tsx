@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Phone, Clock, Search, MapPin, Mail, Menu, X, 
   CheckCircle, Scale, Gavel, FileText, Users, 
   Briefcase, Building2, ChevronLeft, ArrowLeft, 
-  Star, Quote, Linkedin, Twitter, Instagram
+  Linkedin, Twitter, Instagram, Quote, Star
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- بيانات العلامة التجارية ---
 const BRAND = {
   name: "دار القانون",
-  phone: "+201110546863",
+  phone: "920013997",
   email: "info@dar-alqanoon.sa",
   address: "الرياض، طريق الملك فهد، برج العدالة"
 };
@@ -97,6 +97,9 @@ const Navbar = () => {
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
+             <button className={`p-2 rounded-full transition-colors ${scrolled ? 'text-[#231f20] hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}>
+              <Search size={20} />
+            </button>
             <a href="#contact" className="bg-[#c5a059] text-white px-6 py-2.5 rounded shadow-lg hover:bg-[#b08d4b] transition-all text-sm font-bold">
               اطلب استشارة
             </a>
@@ -132,7 +135,7 @@ const Navbar = () => {
   );
 };
 
-// --- 3. Hero Slider (Centered Text) ---
+// --- 3. Hero Slider ---
 const HeroSlider = () => {
   const [index, setIndex] = useState(0);
 
@@ -251,9 +254,8 @@ const Services = () => {
   );
 };
 
-// --- 6. Partners (Images - NEW) ---
+// --- 6. Partners (Images) ---
 const Partners = () => {
-  // روابط شعارات حقيقية لجهات سعودية (ويكيبيديا/مصادر مفتوحة)
   const partners = [
     { name: "Vision 2030", src: "https://upload.wikimedia.org/wikipedia/en/d/d1/Saudi_Vision_2030_logo.svg" },
     { name: "Ministry of Justice", src: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Ministry_of_Justice_%28Saudi_Arabia%29.svg" },
@@ -276,7 +278,7 @@ const Partners = () => {
   );
 };
 
-// --- 7. Team (New Section) ---
+// --- 7. Team ---
 const Team = () => {
   const team = [
     { name: "المحامي / عبدالله الشمري", role: "المدير العام", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
@@ -294,11 +296,7 @@ const Team = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {team.map((member, i) => (
-            <motion.div 
-              key={i} 
-              whileHover={{ y: -10 }}
-              className="bg-white rounded-xl overflow-hidden shadow-lg group relative"
-            >
+            <motion.div key={i} whileHover={{ y: -10 }} className="bg-white rounded-xl overflow-hidden shadow-lg group relative">
               <div className="h-80 overflow-hidden relative">
                 <img src={member.img} alt={member.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 gap-4">
@@ -334,7 +332,35 @@ const Stats = () => (
   </section>
 );
 
-// --- 9. Footer ---
+// --- 9. Testimonials (Using Quotes/Stars) ---
+const Testimonials = () => (
+  <section className="py-24 bg-white">
+    <div className="container mx-auto px-4">
+      <div className="text-center mb-16">
+        <span className="text-[#c5a059] font-bold tracking-widest text-sm uppercase">آراء عملائنا</span>
+        <h2 className="text-4xl font-bold text-[#231f20] mt-2">شركاء النجاح</h2>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="bg-gray-50 p-8 rounded-xl text-center relative mt-8 hover:shadow-lg transition-shadow border border-gray-100">
+            <div className="w-14 h-14 mx-auto -mt-16 mb-4 rounded-full bg-white border-4 border-[#c5a059] flex items-center justify-center text-[#c5a059] shadow-sm">
+              <Quote size={20} />
+            </div>
+            <div className="flex justify-center gap-1 mb-4 text-[#c5a059]">
+              {[1,2,3,4,5].map(s => <Star key={s} size={14} fill="currentColor" />)}
+            </div>
+            <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+              "تعامل راقي واحترافية عالية جداً في التعامل مع القضية. الفريق كان متعاوناً لأبعد الحدود."
+            </p>
+            <h5 className="font-bold text-[#231f20]">عميل مميز {i}</h5>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+// --- 10. Footer ---
 const Footer = () => (
   <footer className="bg-[#151515] text-white pt-20 pb-10 border-t-4 border-[#c5a059]">
     <div className="container mx-auto px-4">
@@ -355,6 +381,14 @@ const Footer = () => (
           </ul>
         </div>
         <div>
+          <h4 className="text-lg font-bold mb-6 text-white">مجالات العمل</h4>
+          <ul className="space-y-3 text-sm text-gray-400">
+            {['التقاضي', 'العقارات', 'الشركات', 'الملكية الفكرية'].map(l => (
+              <li key={l}><a href="#" className="hover:text-[#c5a059] transition-colors flex items-center gap-2"><ChevronLeft size={14}/> {l}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
           <h4 className="text-lg font-bold mb-6 text-white">تواصل معنا</h4>
           <ul className="space-y-4 text-sm text-gray-400">
             <li className="flex items-start gap-3"><MapPin className="text-[#c5a059] mt-1 shrink-0" size={18} /><span>{BRAND.address}</span></li>
@@ -365,6 +399,10 @@ const Footer = () => (
       </div>
       <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
         <p>© 2025 جميع الحقوق محفوظة لشركة دار القانون.</p>
+        <div className="flex gap-4 mt-4 md:mt-0">
+          <a href="#" className="hover:text-white">الشروط والأحكام</a>
+          <a href="#" className="hover:text-white">سياسة الخصوصية</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -382,6 +420,7 @@ function App() {
       <Team />
       <Stats />
       <Partners />
+      <Testimonials />
       <Footer />
       <a href="https://wa.me/966500000000" target="_blank" rel="noopener noreferrer" className="fixed bottom-8 right-8 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:bg-[#128C7E] transition-transform hover:scale-110 flex items-center justify-center">
         <Phone size={28} fill="currentColor" />
