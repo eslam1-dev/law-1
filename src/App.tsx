@@ -3,8 +3,9 @@ import {
   Phone, Clock, Search, MapPin, Mail, Menu, X, 
   CheckCircle, Scale, Gavel, FileText, Users, 
   Briefcase, Building2, ArrowLeft, 
-  Linkedin, Twitter, Instagram, Quote, Star
+  Quote, Star
 } from 'lucide-react';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
