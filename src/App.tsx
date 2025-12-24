@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { 
   Phone, Clock, Search, MapPin, Mail, Menu, X, 
   CheckCircle, Scale, Gavel, FileText, Users, 
-  Briefcase, Building2, ChevronLeft, ArrowLeft, 
+  Briefcase, Building2, ArrowLeft, 
   Linkedin, Twitter, Instagram, Quote, Star, User
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// --- بيانات العلامة التجارية (يمكنك تعديلها هنا) ---
+// --- بيانات العلامة التجارية ---
 const BRAND = {
   name: "دار القانون",
   slogan: "للمحاماة والاستشارات القانونية",
@@ -17,12 +17,36 @@ const BRAND = {
   address: "المملكة العربية السعودية – الرياض"
 };
 
-// --- 1. Top Bar (الشريط العلوي) ---
+// --- بيانات السلايدر (متحرك) ---
+const SLIDES = [
+  {
+    id: 1,
+    image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+    title: "مرحباً بكم في دار القانون",
+    subtitle: "نصنع من التفاصيل فرقاً.. ونحمي حقوقكم بأعلى معايير الاحترافية",
+    button: "اتصل بنا"
+  },
+  {
+    id: 2,
+    image: "https://images.unsplash.com/photo-1505664194779-8beaceb93744?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+    title: "خبرة قضائية عريقة",
+    subtitle: "نخبة من المحامين والمستشارين ذوي الخبرة في المحاكم السعودية",
+    button: "خدماتنا"
+  },
+  {
+    id: 3,
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+    title: "رؤية قانونية للمستقبل",
+    subtitle: "ندعم قطاع الأعمال والشركات بحلول قانونية تواكب رؤية 2030",
+    button: "احجز موعد"
+  }
+];
+
+// --- 1. Top Bar ---
 const TopBar = () => (
-  <div className="bg-[#231f20] text-gray-300 py-3 text-xs md:text-sm border-b border-white/10">
+  <div className="bg-[#231f20] text-gray-300 py-3 text-xs md:text-sm border-b border-white/10 relative z-20">
     <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-2">
       <div className="flex items-center gap-4">
-        {/* Social Icons */}
         <div className="flex gap-2">
           {[Twitter, Linkedin, Instagram].map((Icon, i) => (
             <a key={i} href="#" className="p-1.5 bg-white/5 rounded-full hover:bg-[#b59530] hover:text-white transition-colors">
@@ -45,7 +69,7 @@ const TopBar = () => (
   </div>
 );
 
-// --- 2. Header (الرأس والقائمة) ---
+// --- 2. Header ---
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -57,62 +81,46 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all ${scrolled ? 'py-2' : 'py-4'}`}>
+    <header className={`sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300 ${scrolled ? 'py-2' : 'py-4'}`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          {/* Logo Section */}
+          {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="flex flex-col">
-               {/* يمكنك وضع صورة اللوجو هنا */}
                <h1 className="text-2xl font-bold text-[#231f20]">{BRAND.name}</h1>
                <span className="text-[10px] text-[#b59530] font-bold tracking-wider">{BRAND.slogan}</span>
             </div>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Nav */}
           <nav className="hidden lg:flex items-center gap-8 font-bold text-sm text-[#231f20]">
             {['الرئيسية', 'حول دار القانون', 'الخدمات', 'الباقات', 'الأخبار', 'المدونة', 'اتصل بنا'].map((item, i) => (
-              <a 
-                key={i} 
-                href={`#${item.replace(/\s+/g, '-')}`} 
-                className="relative py-2 hover:text-[#b59530] transition-colors group"
-              >
+              <a key={i} href={`#${item.replace(/\s+/g, '-')}`} className="relative py-2 hover:text-[#b59530] transition-colors group">
                 {item}
                 <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-[#b59530] transition-all group-hover:w-full"></span>
               </a>
             ))}
           </nav>
 
-          {/* Action Buttons */}
+          {/* Actions */}
           <div className="hidden lg:flex items-center gap-4">
             <button className="text-gray-600 hover:text-[#b59530] transition-colors">
               <Search size={20} />
             </button>
-            <a 
-              href={`https://wa.me/${BRAND.whatsapp}`} 
-              target="_blank"
-              className="bg-[#b59530] text-white px-6 py-2.5 rounded-sm font-bold text-sm hover:bg-[#231f20] transition-colors shadow-lg"
-            >
+            <a href={`https://wa.me/${BRAND.whatsapp}`} target="_blank" className="bg-[#b59530] text-white px-6 py-2.5 rounded-sm font-bold text-sm hover:bg-[#231f20] transition-colors shadow-lg">
               اطلب استشارة
             </a>
           </div>
 
-          {/* Mobile Menu Toggle */}
           <button className="lg:hidden text-[#231f20]" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="lg:hidden bg-white border-t border-gray-100 overflow-hidden"
-          >
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="lg:hidden bg-white border-t border-gray-100 overflow-hidden">
             <div className="flex flex-col p-4">
               {['الرئيسية', 'حول دار القانون', 'الخدمات', 'الباقات', 'اتصل بنا'].map((item, i) => (
                 <a key={i} href="#" className="py-3 border-b border-gray-50 text-gray-700 font-medium hover:text-[#b59530]">
@@ -127,64 +135,137 @@ const Header = () => {
   );
 };
 
-// --- 3. Hero Slider (سلايدر الرئيسية) ---
-const Hero = () => (
-  <section className="relative h-[650px] bg-[#202020] flex items-center justify-center overflow-hidden text-center">
-    <div 
-      className="absolute inset-0 bg-cover bg-center opacity-30"
-      style={{ backgroundImage: "url('https://yessom.sa/wp-content/uploads/2025/08/خلفية.jpg')" }}
-    ></div>
-    <div className="relative z-10 container mx-auto px-4">
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2 className="text-2xl md:text-3xl font-light text-white mb-4">مرحباً بكم</h2>
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-          {BRAND.name} <br/> للمحاماة
-        </h1>
-        <p className="text-xl text-[#b59530] mb-10 font-medium">
-          حيث نصنع من التفاصيل فرقاً
-        </p>
-        <a 
-          href={`https://wa.me/${BRAND.whatsapp}`} 
-          className="inline-block border-2 border-[#b59530] text-white px-10 py-3 rounded-sm font-bold text-lg hover:bg-[#b59530] transition-all"
-        >
-          اتصل بنا
-        </a>
-      </motion.div>
-    </div>
-  </section>
-);
+// --- 3. Hero Slider (Alive & Animated) ---
+const HeroSlider = () => {
+  const [index, setIndex] = useState(0);
 
-// --- 4. Intro (التعريف بالمؤسس) ---
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % SLIDES.length);
+    }, 6000); // 6 ثواني لكل شريحة
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section className="relative h-[700px] bg-[#202020] overflow-hidden">
+      <AnimatePresence mode="wait">
+        {/* Background Image with Zoom Effect */}
+        <motion.div
+          key={index}
+          initial={{ scale: 1, opacity: 0.5 }}
+          animate={{ scale: 1.1, opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 6, ease: "linear" }} // حركة بطيئة مستمرة
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${SLIDES[index].image})` }}
+        >
+          {/* Overlay to make text readable */}
+          <div className="absolute inset-0 bg-black/50"></div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 h-full flex items-center justify-center text-center">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={index}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.2 } },
+              exit: { opacity: 0, y: -20, transition: { duration: 0.3 } }
+            }}
+          >
+            <motion.h2 
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="text-2xl md:text-3xl font-light text-gray-200 mb-4"
+            >
+              {BRAND.name} للمحاماة
+            </motion.h2>
+            
+            <motion.h1 
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight"
+            >
+              {SLIDES[index].title}
+            </motion.h1>
+            
+            <motion.div 
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="w-24 h-1 bg-[#b59530] mx-auto mb-8"
+            ></motion.div>
+
+            <motion.p 
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="text-lg md:text-xl text-gray-300 mb-10 font-medium max-w-2xl mx-auto"
+            >
+              {SLIDES[index].subtitle}
+            </motion.p>
+            
+            <motion.a 
+              variants={{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1 } }}
+              href={`https://wa.me/${BRAND.whatsapp}`} 
+              className="inline-block bg-[#b59530] text-white px-10 py-4 rounded-sm font-bold text-lg hover:bg-white hover:text-[#b59530] transition-all shadow-xl"
+            >
+              {SLIDES[index].button}
+            </motion.a>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Slider Controls */}
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
+        {SLIDES.map((_, i) => (
+          <button 
+            key={i} 
+            onClick={() => setIndex(i)}
+            className={`h-2 rounded-full transition-all duration-300 ${i === index ? 'w-10 bg-[#b59530]' : 'w-3 bg-white/50 hover:bg-white'}`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};
+
+// --- 4. Intro ---
 const Intro = () => (
   <section className="py-20 bg-white">
     <div className="container mx-auto px-4">
       <div className="flex flex-col lg:flex-row items-center gap-12">
-        <div className="w-full lg:w-1/2 flex justify-center">
-          <img 
-            src="https://yessom.sa/wp-content/uploads/2025/08/salahbg.png" 
-            alt="Lawyer" 
-            className="max-w-full h-auto drop-shadow-2xl"
-          />
-        </div>
-        <div className="w-full lg:w-1/2 text-right">
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="w-full lg:w-1/2 flex justify-center"
+        >
+          <div className="relative">
+            <div className="absolute inset-0 border-4 border-[#b59530] transform translate-x-4 translate-y-4 rounded-lg hidden md:block"></div>
+            <img src="https://yessom.sa/wp-content/uploads/2025/08/salahbg.png" alt="Lawyer" className="relative z-10 max-w-full h-auto drop-shadow-2xl rounded-lg" />
+          </div>
+        </motion.div>
+        
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="w-full lg:w-1/2 text-right"
+        >
           <h4 className="text-gray-500 font-bold mb-2">المحامي / [اسم المحامي]</h4>
           <div className="w-16 h-1 bg-[#b59530] mb-6"></div>
           <h2 className="text-3xl font-bold text-[#231f20] mb-6 leading-snug">
-            في عالم المحاماة التفاصيل تصنع الفرق ومن هذا الايمان نكرس خبراتنا لنقدم لكم حلولاً قانونية ترتقي بثقتكم بنا.
+            في عالم المحاماة التفاصيل تصنع الفرق، ومن هذا الإيمان نكرس خبراتنا لنقدم لكم حلولاً قانونية ترتقي بثقتكم بنا.
           </h2>
           <h3 className="text-xl font-bold text-[#b59530] mb-8">رئيس {BRAND.name} للمحاماة</h3>
           <img src="https://yessom.sa/wp-content/uploads/2025/08/توقيع.png" alt="Signature" className="h-16 opacity-70" />
-        </div>
+        </motion.div>
       </div>
     </div>
   </section>
 );
 
-// --- 5. Services (الخدمات) ---
+// --- 5. Services ---
 const Services = () => {
   const services = [
     { title: "التحكيم", icon: Scale },
@@ -207,13 +288,17 @@ const Services = () => {
             <span className="block w-1/2 h-1 bg-[#b59530] mx-auto mt-2"></span>
           </h2>
           <p className="text-gray-600 mt-4 leading-relaxed">
-            في {BRAND.name}، نلتزم بتقديم خدمات قانونية متكاملة باحترافية عالية، من خلال نخبة من المحامين والمستشارين.
+            في {BRAND.name}، نلتزم بتقديم خدمات قانونية متكاملة باحترافية عالية.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
-            <div key={index} className="bg-white p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group text-center rounded-lg">
+            <motion.div 
+              key={index}
+              whileHover={{ y: -10 }}
+              className="bg-white p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group text-center rounded-lg"
+            >
               <div className="w-16 h-16 bg-[#f9f9f9] rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#b59530] transition-colors">
                 <service.icon size={30} className="text-[#231f20] group-hover:text-white transition-colors" />
               </div>
@@ -221,7 +306,7 @@ const Services = () => {
               <a href="#" className="inline-block bg-[#b59530] text-white px-6 py-2 rounded-full text-sm font-bold opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all">
                 المزيد حول الخدمة
               </a>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -229,7 +314,7 @@ const Services = () => {
   );
 };
 
-// --- 6. Why Us & Stats (لماذا تختارنا) ---
+// --- 6. Why Us ---
 const WhyUs = () => (
   <section className="py-20 bg-white">
     <div className="container mx-auto px-4 text-center">
@@ -239,27 +324,26 @@ const WhyUs = () => (
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
-        <div className="bg-[#231f20] p-8 text-white text-right rounded-lg">
+        <motion.div whileHover={{ scale: 1.02 }} className="bg-[#231f20] p-8 text-white text-right rounded-lg shadow-lg">
           <p className="text-lg leading-loose">
-            أكثر من عشر سنوات من الخبرة القانونية تجعلنا شريكك القانوني الثابت كالجبل؛ نحمي حقوقك، ونحوّل كل تحدٍ يواجهك اليوم إلى فرصة تصنع مستقبل آمن و مستقر.
+            أكثر من عشر سنوات من الخبرة القانونية تجعلنا شريكك القانوني الثابت كالجبل؛ نحمي حقوقك، ونحوّل كل تحدٍ يواجهك اليوم إلى فرصة تصنع مستقبل آمن.
           </p>
-        </div>
-        <div className="bg-[#f4f4f4] p-8 text-[#231f20] text-right rounded-lg">
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.02 }} className="bg-[#f4f4f4] p-8 text-[#231f20] text-right rounded-lg shadow-lg border border-gray-200">
           <p className="text-lg leading-loose">
             اختيارك لنا هو اختيار لقيمٍ نعيشها في كل يوم؛ فنحن نولي التفاصيل عناية، ونحفظ الخصوصية، ونعمل معك بوضوح ومصداقية.
           </p>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Counters */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-gray-100 pt-10">
         {[
           { num: "10,000+", label: "عدد الدعاوى القضائية" },
           { num: "10 مليار+", label: "مبالغ قضايا التركات" },
           { num: "13,000+", label: "عدد الاستشارات القانونية" },
         ].map((stat, i) => (
-          <div key={i}>
-            <h3 className="text-4xl font-bold text-[#b59530] mb-2 font-sans">{stat.num}</h3>
+          <div key={i} className="group">
+            <h3 className="text-4xl font-bold text-[#b59530] mb-2 font-sans group-hover:scale-110 transition-transform">{stat.num}</h3>
             <p className="text-gray-500 font-bold">{stat.label}</p>
           </div>
         ))}
@@ -268,7 +352,7 @@ const WhyUs = () => (
   </section>
 );
 
-// --- 7. Newsletter (القائمة البريدية) ---
+// --- 7. Newsletter ---
 const Newsletter = () => (
   <section className="py-16 bg-[#231f20] text-white">
     <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between gap-8">
@@ -294,7 +378,7 @@ const Newsletter = () => (
   </section>
 );
 
-// --- 8. Testimonials (آراء العملاء) ---
+// --- 8. Testimonials ---
 const Testimonials = () => (
   <section className="py-24 bg-white">
     <div className="container mx-auto px-4">
@@ -305,9 +389,13 @@ const Testimonials = () => (
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-[#f9f9f9] p-8 rounded-lg text-center relative mt-10 hover:shadow-lg transition-shadow">
-            <div className="w-20 h-20 bg-white border-4 border-[#b59530] rounded-full mx-auto -mt-16 flex items-center justify-center mb-4">
-              <User size={32} className="text-[#b59530]" />
+          <motion.div 
+            key={i}
+            whileHover={{ y: -5 }}
+            className="bg-[#f9f9f9] p-8 rounded-lg text-center relative mt-10 hover:shadow-lg transition-shadow border border-gray-100"
+          >
+            <div className="w-20 h-20 bg-white border-4 border-[#b59530] rounded-full mx-auto -mt-16 flex items-center justify-center mb-4 shadow-sm">
+              <Quote size={32} className="text-[#b59530]" />
             </div>
             <div className="flex justify-center gap-1 text-[#b59530] mb-4">
               {[1, 2, 3, 4, 5].map((s) => <Star key={s} size={16} fill="currentColor" />)}
@@ -315,21 +403,15 @@ const Testimonials = () => (
             <p className="text-gray-600 text-sm leading-relaxed mb-4 italic">
               "خدمة ممتازة واحترافية عالية. الفريق كان متجاوباً جداً وساعدني في حل قضيتي بوقت قياسي. أنصح بالتعامل معهم."
             </p>
-            <h5 className="font-bold text-[#231f20]">عميل {i}</h5>
-          </div>
+            <h5 className="font-bold text-[#231f20]">عميل مميز</h5>
+          </motion.div>
         ))}
-      </div>
-      
-      <div className="text-center mt-12">
-        <a href={`https://wa.me/${BRAND.whatsapp}`} className="inline-block border border-[#b59530] text-[#b59530] px-8 py-3 rounded-sm font-bold hover:bg-[#b59530] hover:text-white transition-all">
-          انضم إلى قائمة عملائنا المميزين
-        </a>
       </div>
     </div>
   </section>
 );
 
-// --- 9. Team (فريق العمل) ---
+// --- 9. Team ---
 const Team = () => {
   const members = [
     { name: "تميم الهذلي", role: "السكرتارية القانونية" },
@@ -348,9 +430,8 @@ const Team = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {members.map((m, i) => (
-            <div key={i} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+            <motion.div key={i} whileHover={{ y: -5 }} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
               <div className="h-64 bg-gray-200 overflow-hidden relative">
-                {/* استبدل الروابط بصور حقيقية */}
                 <img 
                   src={`https://yessom.sa/wp-content/uploads/2025/08/تميم-الهذلي.jpg`} 
                   onError={(e) => (e.currentTarget.src = 'https://via.placeholder.com/400x500?text=Team+Member')}
@@ -362,7 +443,7 @@ const Team = () => {
                 <h3 className="font-bold text-[#231f20] text-lg">{m.name}</h3>
                 <p className="text-sm text-gray-500 mt-1">{m.role}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -370,12 +451,12 @@ const Team = () => {
   );
 };
 
-// --- 10. Blog (المدونة) ---
+// --- 10. Blog ---
 const Blog = () => (
-  <section className="py-20 bg-[#231f20]">
+  <section className="py-20 bg-white">
     <div className="container mx-auto px-4">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-white">مدونة {BRAND.name}</h2>
+        <h2 className="text-3xl font-bold text-[#231f20]">مدونة {BRAND.name}</h2>
         <div className="w-20 h-1 bg-[#b59530] mx-auto mt-4"></div>
       </div>
 
@@ -385,7 +466,7 @@ const Blog = () => (
           "كيف يتم الطلاق في السعودية عبر ناجز؟",
           "رفع دعوى مطالبة مالية: الشروط والإجراءات"
         ].map((title, i) => (
-          <div key={i} className="bg-white rounded-lg overflow-hidden group cursor-pointer">
+          <div key={i} className="bg-white rounded-lg overflow-hidden group cursor-pointer border border-gray-100 hover:shadow-lg transition-shadow">
             <div className="h-48 bg-gray-300 relative overflow-hidden">
                <img src="https://yessom.sa/wp-content/uploads/2025/12/التخبيب-600x400.png" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Blog" />
             </div>
@@ -401,13 +482,27 @@ const Blog = () => (
   </section>
 );
 
-// --- 11. Footer (الفوتر) ---
+// --- 11. Partners ---
+const Partners = () => (
+  <div className="py-10 bg-gray-50 text-center border-t">
+    <div className="container mx-auto px-4">
+      <h4 className="text-gray-400 font-bold mb-8 uppercase tracking-widest text-sm">شركاء النجاح</h4>
+      {/* Scrolling Marquee Effect */}
+      <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 duration-500">
+         <img src="https://yessom.sa/wp-content/uploads/2025/08/Untitled-4-copy-150x150.png" alt="Partner 1" className="h-12 w-auto object-contain" />
+         <img src="https://yessom.sa/wp-content/uploads/2025/08/moh-150x150.png" alt="Partner 2" className="h-12 w-auto object-contain" />
+         <img src="https://yessom.sa/wp-content/uploads/2025/08/bs-150x150.png" alt="Partner 3" className="h-12 w-auto object-contain" />
+         <img src="https://yessom.sa/wp-content/uploads/2025/08/bsf1-150x150.png" alt="Partner 4" className="h-12 w-auto object-contain" />
+      </div>
+    </div>
+  </div>
+);
+
+// --- 12. Footer ---
 const Footer = () => (
   <footer className="bg-[#1a1a1a] text-white pt-20 pb-10 border-t-4 border-[#b59530]">
     <div className="container mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 text-sm text-gray-400">
-        
-        {/* About */}
         <div>
           <h4 className="text-white font-bold text-lg mb-6 relative inline-block pb-2 border-b border-gray-700">عن الشركة</h4>
           <p className="leading-loose mb-6">
@@ -415,8 +510,6 @@ const Footer = () => (
           </p>
           <img src="https://yessom.sa/wp-content/uploads/2025/08/new-logo-150x48.png" className="h-10 grayscale brightness-200" alt="Logo" />
         </div>
-
-        {/* Links */}
         <div>
           <h4 className="text-white font-bold text-lg mb-6 relative inline-block pb-2 border-b border-gray-700">روابط هامة</h4>
           <ul className="space-y-3">
@@ -425,8 +518,6 @@ const Footer = () => (
             ))}
           </ul>
         </div>
-
-        {/* Services */}
         <div>
           <h4 className="text-white font-bold text-lg mb-6 relative inline-block pb-2 border-b border-gray-700">الخدمات</h4>
           <ul className="space-y-3">
@@ -435,8 +526,6 @@ const Footer = () => (
             ))}
           </ul>
         </div>
-
-        {/* Contact */}
         <div>
           <h4 className="text-white font-bold text-lg mb-6 relative inline-block pb-2 border-b border-gray-700">تواصل معنا</h4>
           <ul className="space-y-4">
@@ -454,9 +543,7 @@ const Footer = () => (
             </li>
           </ul>
         </div>
-
       </div>
-
       <div className="border-t border-gray-800 pt-8 text-center text-xs">
         <p>© 2025 جميع الحقوق محفوظة لشركة {BRAND.name}.</p>
       </div>
@@ -464,13 +551,13 @@ const Footer = () => (
   </footer>
 );
 
-// --- Main App Component ---
+// --- Main App ---
 function App() {
   return (
     <div className="min-h-screen bg-white font-sans text-right" dir="rtl">
       <TopBar />
       <Header />
-      <Hero />
+      <HeroSlider />
       <Intro />
       <Services />
       <WhyUs />
@@ -478,18 +565,8 @@ function App() {
       <Testimonials />
       <Team />
       <Blog />
-      <div className="py-10 bg-gray-50 text-center border-t">
-        <h4 className="text-gray-400 font-bold mb-6">شركاء النجاح</h4>
-        {/* Placeholder for Partners Logos */}
-        <div className="flex justify-center gap-4 opacity-50 grayscale">
-           <img src="https://yessom.sa/wp-content/uploads/2025/08/Untitled-4-copy-150x150.png" alt="" />
-           <img src="https://yessom.sa/wp-content/uploads/2025/08/moh-150x150.png" alt="" />
-           <img src="https://yessom.sa/wp-content/uploads/2025/08/bs-150x150.png" alt="" />
-        </div>
-      </div>
+      <Partners />
       <Footer />
-      
-      {/* Floating WhatsApp */}
       <a 
         href={`https://wa.me/${BRAND.whatsapp}`} 
         target="_blank" 
