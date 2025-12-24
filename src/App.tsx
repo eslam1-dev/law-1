@@ -11,8 +11,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 const BRAND = {
   name: "دار القانون",
   slogan: "للمحاماة والاستشارات القانونية",
-  phone: "920013997",
-  whatsapp: "966555626043",
+  phone: "+201110546863s",
+  whatsapp: "01110546863",
   email: "info@dar-alqanoon.sa",
   address: "المملكة العربية السعودية – الرياض"
 };
@@ -21,14 +21,14 @@ const BRAND = {
 const SLIDES = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+    image: "https://qabasksa.com/wp-content/uploads/2024/10/٣.jpg",
     title: "مرحباً بكم في دار القانون",
     subtitle: "نصنع من التفاصيل فرقاً.. ونحمي حقوقكم بأعلى معايير الاحترافية",
     button: "اتصل بنا"
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1505664194779-8beaceb93744?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+    image: "https://qabasksa.com/wp-content/uploads/2025/01/%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D9%85%D8%A7%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9%D8%B4%D8%B1%D9%88%D8%B7%D9%87%D8%A7-%D9%88%D8%A3%D9%87%D9%85-%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%D9%87%D8%A7-copy-2.jpg",
     title: "خبرة قضائية عريقة",
     subtitle: "نخبة من المحامين والمستشارين ذوي الخبرة في المحاكم السعودية",
     button: "خدماتنا"
@@ -257,8 +257,8 @@ const Intro = () => (
           <h2 className="text-3xl font-bold text-[#231f20] mb-6 leading-snug">
             في عالم المحاماة التفاصيل تصنع الفرق، ومن هذا الإيمان نكرس خبراتنا لنقدم لكم حلولاً قانونية ترتقي بثقتكم بنا.
           </h2>
-          <h3 className="text-xl font-bold text-[#b59530] mb-8">رئيس {BRAND.name} للمحاماة</h3>
-          <img src="https://yessom.sa/wp-content/uploads/2025/08/توقيع.png" alt="Signature" className="h-16 opacity-70" />
+          <h3 className="text-xl font-bold text-[#b59530] mb-8">مؤسس دار القانون</h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Signature_de_solar.png" alt="Signature" className="h-16 opacity-70" />
         </motion.div>
       </div>
     </div>
@@ -508,7 +508,7 @@ const Footer = () => (
           <p className="leading-loose mb-6">
             “{BRAND.name}” ليس مجرد اسم، بل هو وعدٌ بالثبات، ورمز للثقة تُبنى عليها شراكتنا مع عملائنا في كل خطوة قانونية.
           </p>
-          <img src="https://yessom.sa/wp-content/uploads/2025/08/new-logo-150x48.png" className="h-10 grayscale brightness-200" alt="Logo" />
+          <img src="https://i.ibb.co/6cjqZpcV/logo-lw.png" className="h-10 grayscale brightness-200" alt="Logo" />
         </div>
         <div>
           <h4 className="text-white font-bold text-lg mb-6 relative inline-block pb-2 border-b border-gray-700">روابط هامة</h4>
