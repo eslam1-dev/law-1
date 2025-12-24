@@ -6,6 +6,8 @@ import {
   Linkedin, Twitter, Instagram, Quote, Star
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+
 
 // --- بيانات العلامة التجارية ---
 const BRAND = {
@@ -48,11 +50,12 @@ const TopBar = () => (
     <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-2">
       <div className="flex items-center gap-4">
         <div className="flex gap-2">
-          {[Twitter, Linkedin, Instagram].map((Icon, i) => (
-            <a key={i} href="#" className="p-1.5 bg-white/5 rounded-full hover:bg-[#b59530] hover:text-white transition-colors">
-              <Icon size={14} />
-            </a>
-          ))}
+          {[FaTwitter, FaLinkedinIn, FaInstagram].map((Icon, i) => (
+  <a key={i} className="p-1.5 text-gray-300 hover:text-white">
+    <Icon size={14} />
+  </a>
+))}
+
         </div>
       </div>
       <div className="flex items-center gap-6">
