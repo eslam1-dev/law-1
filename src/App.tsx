@@ -332,7 +332,7 @@ const Stats = () => (
   </section>
 );
 
-// --- 9. Testimonials (Using Quotes/Stars) ---
+// --- 9. Testimonials ---
 const Testimonials = () => (
   <section className="py-24 bg-white">
     <div className="container mx-auto px-4">
