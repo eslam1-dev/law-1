@@ -3,7 +3,7 @@ import {
   Phone, Clock, Search, MapPin, Mail, Menu, X, 
   CheckCircle, Scale, Gavel, FileText, Users, 
   Briefcase, Building2, ArrowLeft, 
-  Linkedin, Twitter, Instagram, Quote, Star, User
+  Linkedin, Twitter, Instagram, Quote, Star
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const BRAND = {
   name: "دار القانون",
   slogan: "للمحاماة والاستشارات القانونية",
-  phone: "+201110546863s",
+  phone: "+201110546863",
   whatsapp: "01110546863",
   email: "info@dar-alqanoon.sa",
   address: "المملكة العربية السعودية – الرياض"
@@ -21,21 +21,21 @@ const BRAND = {
 const SLIDES = [
   {
     id: 1,
-    image: "https://qabasksa.com/wp-content/uploads/2024/10/٣.jpg",
+    image: "https://qabasksa.com/wp-content/uploads/2025/01/%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D9%85%D8%A7%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9%D8%B4%D8%B1%D9%88%D8%B7%D9%87%D8%A7-%D9%88%D8%A3%D9%87%D9%85-%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%D9%87%D8%A7-copy-2.jpg",
     title: "مرحباً بكم في دار القانون",
     subtitle: "نصنع من التفاصيل فرقاً.. ونحمي حقوقكم بأعلى معايير الاحترافية",
     button: "اتصل بنا"
   },
   {
     id: 2,
-    image: "https://qabasksa.com/wp-content/uploads/2025/01/%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D9%85%D8%A7%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9%D8%B4%D8%B1%D9%88%D8%B7%D9%87%D8%A7-%D9%88%D8%A3%D9%87%D9%85-%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%D9%87%D8%A7-copy-2.jpg",
+    image: "https://cnn-arabic-images.cnn.io/cloudinary/image/upload/w_1920,h_1080,c_fill,q_auto,g_center/cnnarabic/2021/01/13/images/174855.jpg",
     title: "خبرة قضائية عريقة",
     subtitle: "نخبة من المحامين والمستشارين ذوي الخبرة في المحاكم السعودية",
     button: "خدماتنا"
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+    image: "https://mohami-riyadh.com/wp-content/uploads/2022/01/%D9%85%D8%AD%D8%A7%D9%85%D9%8A-%D8%A8%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6-2.webp",
     title: "رؤية قانونية للمستقبل",
     subtitle: "ندعم قطاع الأعمال والشركات بحلول قانونية تواكب رؤية 2030",
     button: "احجز موعد"
@@ -142,29 +142,26 @@ const HeroSlider = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % SLIDES.length);
-    }, 6000); // 6 ثواني لكل شريحة
+    }, 6000); 
     return () => clearInterval(timer);
   }, []);
 
   return (
     <section className="relative h-[700px] bg-[#202020] overflow-hidden">
       <AnimatePresence mode="wait">
-        {/* Background Image with Zoom Effect */}
         <motion.div
           key={index}
           initial={{ scale: 1, opacity: 0.5 }}
           animate={{ scale: 1.1, opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 6, ease: "linear" }} // حركة بطيئة مستمرة
+          transition={{ duration: 6, ease: "linear" }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${SLIDES[index].image})` }}
         >
-          {/* Overlay to make text readable */}
           <div className="absolute inset-0 bg-black/50"></div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Content */}
       <div className="relative z-10 container mx-auto px-4 h-full flex items-center justify-center text-center">
         <AnimatePresence mode="wait">
           <motion.div
@@ -215,7 +212,6 @@ const HeroSlider = () => {
         </AnimatePresence>
       </div>
 
-      {/* Slider Controls */}
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
         {SLIDES.map((_, i) => (
           <button 
@@ -257,8 +253,8 @@ const Intro = () => (
           <h2 className="text-3xl font-bold text-[#231f20] mb-6 leading-snug">
             في عالم المحاماة التفاصيل تصنع الفرق، ومن هذا الإيمان نكرس خبراتنا لنقدم لكم حلولاً قانونية ترتقي بثقتكم بنا.
           </h2>
-          <h3 className="text-xl font-bold text-[#b59530] mb-8">مؤسس دار القانون</h3>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Signature_de_solar.png" alt="Signature" className="h-16 opacity-70" />
+          <h3 className="text-xl font-bold text-[#b59530] mb-8">رئيس {BRAND.name} للمحاماة</h3>
+          <img src="https://png.pngtree.com/png-vector/20240628/ourmid/pngtree-signature-isolated-the-signature-is-neatly-written-in-black-ink-the-png-image_12728547.png" alt="Signature" className="h-16 opacity-70" />
         </motion.div>
       </div>
     </div>
@@ -551,7 +547,7 @@ const Footer = () => (
   </footer>
 );
 
-// --- Main App ---
+// --- Main App Component ---
 function App() {
   return (
     <div className="min-h-screen bg-white font-sans text-right" dir="rtl">
